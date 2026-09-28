@@ -1,6 +1,8 @@
 # dsh-hook-guard-demo
 
-`dsh-hooks-bus` 的**被依赖路径验证插件**：一个完全独立的包，声明 `dsh-hooks-bus` 为依赖，通过**声明式清单**订阅 `PreToolUse`，拦截危险 shell 命令。
+[dsh-hooks-bus](https://github.com/ENyerere/dsh-hooks-bus) 的**被依赖路径验证插件**：一个完全独立的包，声明 `dsh-hooks-bus` 为依赖，通过**声明式清单**订阅 `PreToolUse`，拦截危险 shell 命令。
+
+> 想写自己的总线消费者插件？照抄本仓库 10 分钟即可跑通；更完整的对接文档见总线的 [author-guide](https://github.com/ENyerere/dsh-hooks-bus/blob/main/docs/author-guide.md)。
 
 ## 工作机制
 
@@ -25,12 +27,16 @@
 
 | 命令 | 结果 |
 | --- | --- |
-| `rm -rf …`（含变体 `rm -fr`） | block |
-| `format C:` | block |
+| `rm` 递归+强制删除（`-rf` / `-fr` / `-Rf` / `-r -f` / `--recursive --force` 任意拼写） | block |
+| `Remove-Item … -Recurse`（PowerShell 原生递归删除） | block |
+| `rd /s …`、`rmdir /s …`（cmd 递归删除） | block |
 | `del /s …`、`del /q …` | block |
+| `format C:` | block |
 | `git push … --force` | block |
 | `shutdown /s`、`shutdown /r` | block |
-| 其余命令 | 放行 |
+| 其余命令（含 `rm -f 单文件`、`rm -r` 不带 `-f`、`Remove-Item` 无 `-Recurse`） | 放行 |
+
+> 定位说明：本插件是**演示**，字符串匹配不是安全边界——覆盖常见危险写法，但不防御刻意混淆。
 
 ## 验证
 
