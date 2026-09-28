@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Hook Guard Demo",
+    "description": "Demo consumer of dsh-hooks-bus: blocks dangerous shell commands (rm -rf, format, del /s, git push --force, shutdown)."
+  }
+}

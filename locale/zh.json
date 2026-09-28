@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "钩子守卫示例",
+    "description": "dsh-hooks-bus 的示例消费者：拦截危险命令（rm -rf、format、del /s、git push --force、shutdown）。"
+  }
+}

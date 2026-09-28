@@ -1,0 +1,7 @@
+# Bundle patch for dsh-hook-guard-demo; the row depends on dsh-hooks-bus at
+# runtime via `inject: ['hooksBus']` declared in the plugin entry.
+
+- insert:
+    - id: dsh-hook-guard-demo
+      name: dsh-hook-guard-demo
+      config: {}
